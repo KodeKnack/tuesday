@@ -24,7 +24,13 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Jane Doe',
                 'email' => 'jane@doe.com',
                 'password' => bcrypt('password123'),
+            ],
+            [
+                'name' => 'Jhon Snoe',
+                'email' => 'Jhon@snoe.com',
+                'password' => bcrypt('password123'),
             ]
+
         ]);
 
         Task::factory(20)->create([

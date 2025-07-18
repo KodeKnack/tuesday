@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 // Show the signup form
 Route::get('/signup', [UserController::class, 'create']);
@@ -36,3 +38,13 @@ Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->middleware('
 
 // Show a specific task
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->middleware('auth');
+
+Route::post('/login', function (Request $request) {
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // Login successful
+        return redirect()->intended('dashboard');
+    } else {
+        // Login failed
+        return back()->withErrors(['email' => 'Invalid credentials.']);
+    }
+});
